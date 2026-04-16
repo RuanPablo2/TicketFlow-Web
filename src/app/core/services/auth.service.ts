@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
   
-  private apiUrl = 'http://localhost:8081/api/auth'; 
+  private apiUrl = `${environment.apiUrl}/auth`; 
 
   login(credentials: any): Observable<any> {
     return this.http.post<{token: string}>(`${this.apiUrl}/login`, credentials).pipe(
