@@ -26,4 +26,17 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('jwt_token');
   }
+
+  getUserRole(): string | null {
+    const token = localStorage.getItem('jwt_token');
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role;
+    } catch (error) {
+      console.error('Erro ao ler o token', error);
+      return null;
+    }
+  }
 }

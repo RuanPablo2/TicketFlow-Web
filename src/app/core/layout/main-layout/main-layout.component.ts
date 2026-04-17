@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,9 +13,16 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })
-export class MainLayoutComponent {
+
+export class MainLayoutComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  userRole: string | null = '';
+
+  ngOnInit() {
+    this.userRole = this.authService.getUserRole();
+  }
 
   logout() {
     this.authService.logout();

@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { TicketService } from '../../../core/services/ticket.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
+
 @Component({
   selector: 'app-ticket-list',
   standalone: true,
@@ -16,6 +19,7 @@ import { TicketService } from '../../../core/services/ticket.service';
 })
 export class TicketListComponent implements OnInit {
   private ticketService = inject(TicketService);
+  private dialog = inject(MatDialog);
 
   displayedColumns: string[] = ['id', 'title', 'category', 'priority', 'status', 'actions'];
   
@@ -35,6 +39,20 @@ export class TicketListComponent implements OnInit {
       error: (err) => {
         console.error('Erro ao buscar tickets:', err);
         this.isLoading = false;
+      }
+    });
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(TicketCreateComponent, {
+      width: '600px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.isLoading = true;
+        this.loadTickets();
       }
     });
   }

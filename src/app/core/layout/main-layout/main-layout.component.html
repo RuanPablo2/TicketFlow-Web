@@ -5,10 +5,22 @@
       <span>TicketFlow</span>
     </div>
 
+    <div class="nav-links">
+      <button mat-button routerLink="/tickets">Meus Chamados</button>
+
+      <button
+        mat-button
+        *ngIf="userRole === 'ADMIN'"
+        routerLink="/admin/staff/new"
+      >
+        <mat-icon>person_add</mat-icon> Criar Staff
+      </button>
+    </div>
+
     <span class="spacer"></span>
 
     <div class="user-actions">
-      <button mat-button><mat-icon>person</mat-icon> Admin</button>
+      <button mat-button><mat-icon>person</mat-icon> {{ userRole }}</button>
 
       <button mat-icon-button matTooltip="Sair do sistema" (click)="logout()">
         <mat-icon>logout</mat-icon>
