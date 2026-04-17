@@ -1,0 +1,22 @@
+<div class="layout-container">
+  <mat-toolbar color="primary" class="navbar mat-elevation-z4">
+    <div class="brand">
+      <mat-icon>confirmation_number</mat-icon>
+      <span>TicketFlow</span>
+    </div>
+
+    <span class="spacer"></span>
+
+    <div class="user-actions">
+      <button mat-button><mat-icon>person</mat-icon> Admin</button>
+
+      <button mat-icon-button matTooltip="Sair do sistema" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

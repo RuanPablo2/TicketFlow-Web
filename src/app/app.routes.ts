@@ -9,9 +9,15 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
   },
   
-  { 
-    path: 'tickets', 
+  {
+    path: '',
     canActivate: [authGuard],
-    loadComponent: () => import('./features/tickets/ticket-list/ticket-list.component').then(m => m.TicketListComponent)
+    loadComponent: () => import('./core/layout/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+    children: [
+      { 
+        path: 'tickets', 
+        loadComponent: () => import('./features/tickets/ticket-list/ticket-list.component').then(m => m.TicketListComponent)
+      }
+    ]
   }
 ];

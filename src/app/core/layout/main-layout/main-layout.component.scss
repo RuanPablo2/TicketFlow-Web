@@ -1,0 +1,41 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 20px;
+
+    mat-icon {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f4f6f8;
+}
