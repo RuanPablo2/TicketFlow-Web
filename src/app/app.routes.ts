@@ -21,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'tickets/:id',
         loadComponent: () => import('./features/tickets/ticket-detail/ticket-detail.component').then(m => m.TicketDetailComponent)
+      },
+      {
+        path: 'admin/staff/new',
+        loadComponent: () => import('./features/admin/staff-create/staff-create.component').then(m => m.StaffCreateComponent)
       }
     ]
   }

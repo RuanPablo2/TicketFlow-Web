@@ -1,0 +1,97 @@
+<div class="page-container">
+  <div class="page-header">
+    <button
+      mat-icon-button
+      routerLink="/tickets"
+      matTooltip="Back to Dashboard"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Create New Staff Account</h2>
+  </div>
+
+  <div class="form-wrapper">
+    <mat-card class="form-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="primary">admin_panel_settings</mat-icon>
+          Staff Details
+        </mat-card-title>
+        <mat-card-subtitle
+          >Only administrators can perform this action.</mat-card-subtitle
+        >
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="staffForm"
+          class="staff-form"
+          (ngSubmit)="onSubmit()"
+        >
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="E.g. John Doe"
+            />
+            <mat-icon matPrefix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email Address</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="agent@ticketflow.com"
+            />
+            <mat-icon matPrefix>email</mat-icon>
+          </mat-form-field>
+
+          <div class="row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Temporary Password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="password"
+                placeholder="Min. 6 characters"
+              />
+              <mat-icon matPrefix>lock</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>System Role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option value="SUPPORT">Support Agent</mat-option>
+                <mat-option value="ADMIN">Administrator</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>badge</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions align="end" class="card-actions">
+        <button mat-button routerLink="/tickets" [disabled]="isLoading">
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="onSubmit()"
+          [disabled]="staffForm.invalid || isLoading"
+        >
+          <mat-icon *ngIf="!isLoading">save</mat-icon>
+          <mat-spinner
+            *ngIf="isLoading"
+            diameter="20"
+            class="btn-spinner"
+          ></mat-spinner>
+          {{ isLoading ? "Creating..." : "Create Account" }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

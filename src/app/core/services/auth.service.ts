@@ -39,4 +39,8 @@ export class AuthService {
       return null;
     }
   }
+
+  registerStaff(staffData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/register-staff`, staffData);
+  }
 }
