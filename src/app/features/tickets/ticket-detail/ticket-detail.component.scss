@@ -126,20 +126,6 @@
       }
     }
   }
-
-  .chat-actions {
-    padding: 16px;
-    background-color: #fff;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 16px;
-    align-items: center;
-
-    .chat-input {
-      flex: 1;
-      margin-bottom: -1.25em;
-    }
-  }
 }
 
 ::ng-deep {
@@ -179,5 +165,100 @@
     color: #8e24aa !important;
     font-weight: 500;
     border: 1px solid #e1bee7;
+  }
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-bubble {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  align-self: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  &.my-message {
+    align-self: flex-end;
+    background-color: #e3f2fd;
+    border-color: #bbdefb;
+  }
+
+  .msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    gap: 16px;
+
+    .sender {
+      font-weight: 600;
+      font-size: 13px;
+      color: #1976d2;
+    }
+    .time {
+      font-size: 11px;
+      color: #999;
+    }
+  }
+
+  .msg-content {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+}
+
+.chat-actions-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+
+  .staff-controls {
+    margin-bottom: 12px;
+    padding-left: 4px;
+
+    ::ng-deep .mat-mdc-slide-toggle .mdc-label {
+      font-size: 13px;
+      color: #666;
+    }
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+
+    .chat-input {
+      flex: 1;
+      margin-bottom: -1.25em;
+    }
+  }
+}
+
+.internal-note {
+  background-color: #fff9c4 !important;
+  border-color: #ffd54f !important;
+
+  .msg-header .sender {
+    color: #e65100 !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .lock-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
   }
 }

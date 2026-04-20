@@ -61,27 +61,75 @@
     <div class="chat-column">
       <mat-card class="chat-card">
         <mat-card-header>
-          <mat-card-title>
-            <mat-icon>forum</mat-icon> Conversation
-          </mat-card-title>
+          <mat-card-title> <mat-icon>forum</mat-icon> Chat </mat-card-title>
         </mat-card-header>
 
         <mat-card-content class="chat-area">
-          <div class="empty-chat">
+          <div class="empty-chat" *ngIf="messages.length === 0">
             <mat-icon>chat_bubble_outline</mat-icon>
             <p>No message yet.</p>
-            <p class="subtitle">The messaging area will be built here!</p>
+          </div>
+
+          <div class="message-list" *ngIf="messages.length > 0">
+            <div
+              class="message-bubble"
+              *ngFor="let msg of messages"
+              [ngClass]="{ 'internal-note': msg.internalNote }"
+            >
+              <div class="msg-header">
+                <span class="sender">
+                  <mat-icon
+                    *ngIf="msg.internalNote"
+                    class="lock-icon"
+                    matTooltip="Internal Note (Invisible to the client)"
+                    >lock</mat-icon
+                  >
+                  {{ msg.senderName || "User" }}
+                </span>
+                <span class="time" *ngIf="msg.createdAt">{{
+                  msg.createdAt | date: "HH:mm"
+                }}</span>
+              </div>
+              <div class="msg-content">{{ msg.content }}</div>
+            </div>
           </div>
         </mat-card-content>
 
-        <mat-card-actions class="chat-actions">
-          <mat-form-field appearance="outline" class="chat-input">
-            <mat-label>Enter your message...</mat-label>
-            <input matInput disabled placeholder="Em breve..." />
-          </mat-form-field>
-          <button mat-fab color="primary" disabled>
-            <mat-icon>send</mat-icon>
-          </button>
+        <mat-card-actions class="chat-actions-container">
+          <div
+            class="staff-controls"
+            *ngIf="userRole === 'ADMIN' || userRole === 'SUPPORT'"
+          >
+            <mat-slide-toggle [(ngModel)]="isInternalNote" color="warn">
+              Mark as Internal Note (Invisible to Client)
+            </mat-slide-toggle>
+          </div>
+
+          <div class="chat-input-row">
+            <mat-form-field appearance="outline" class="chat-input">
+              <mat-label>Enter your message...</mat-label>
+              <input
+                matInput
+                [(ngModel)]="newMessage"
+                (keyup.enter)="sendMessage()"
+                [disabled]="isSending"
+                [placeholder]="
+                  isInternalNote
+                    ? 'Write a confidential note...'
+                    : 'Message for the client...'
+                "
+              />
+            </mat-form-field>
+
+            <button
+              mat-fab
+              color="primary"
+              (click)="sendMessage()"
+              [disabled]="!newMessage.trim() || isSending"
+            >
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>

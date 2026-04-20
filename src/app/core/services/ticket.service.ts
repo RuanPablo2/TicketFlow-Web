@@ -22,4 +22,13 @@ export class TicketService {
   getTicketById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  getMessages(ticketId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${ticketId}/messages`);
+  }
+
+  sendMessage(ticketId: string, content: string, internalNote: boolean): Observable<any> {
+    const payload = { content, internalNote };
+    return this.http.post<any>(`${this.apiUrl}/${ticketId}/messages`, payload);
+  }
 }

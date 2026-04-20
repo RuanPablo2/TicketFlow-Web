@@ -10,6 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TicketService } from '../../../core/services/ticket.service';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -17,7 +20,8 @@ import { TicketService } from '../../../core/services/ticket.service';
   imports: [
     CommonModule, RouterModule, MatCardModule, 
     MatChipsModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
-    MatDividerModule, MatFormFieldModule, MatInputModule
+    MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule,
+    MatSlideToggleModule
   ],
   templateUrl: './ticket-detail.component.html',
   styleUrl: './ticket-detail.component.scss'
@@ -25,16 +29,26 @@ import { TicketService } from '../../../core/services/ticket.service';
 export class TicketDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private ticketService = inject(TicketService);
+  private authService = inject(AuthService);
 
   ticketId: string | null = null;
   ticketData: any = null;
   isLoading = true;
 
-  ngOnInit(): void {
-    this.ticketId = this.route.snapshot.paramMap.get('id');
+  messages: any[] = [];
+  newMessage: string = '';
+  isSending = false;
+  
+  userRole: string | null = '';
+  isInternalNote = false;
 
+  ngOnInit(): void {
+    this.userRole = this.authService.getUserRole();
+    
+    this.ticketId = this.route.snapshot.paramMap.get('id');
     if (this.ticketId) {
       this.loadTicketDetails(this.ticketId);
+      this.loadMessages(this.ticketId);
     }
   }
 
@@ -48,6 +62,32 @@ export class TicketDetailComponent implements OnInit {
       error: (err) => {
         console.error('❌ Error when searching ticket', err);
         this.isLoading = false;
+      }
+    });
+  }
+
+  loadMessages(id: string) {
+    this.ticketService.getMessages(id).subscribe({
+      next: (res) => this.messages = res,
+      error: (err) => console.error('Error loading messages', err)
+    });
+  }
+
+  sendMessage() {
+    if (!this.newMessage.trim() || !this.ticketId) return;
+
+    this.isSending = true;
+    
+    this.ticketService.sendMessage(this.ticketId, this.newMessage, this.isInternalNote).subscribe({
+      next: (res) => {
+        this.messages.push(res); 
+        this.newMessage = ''; 
+        this.isInternalNote = false;
+        this.isSending = false;
+      },
+      error: (err) => {
+        console.error('Error sending message', err);
+        this.isSending = false;
       }
     });
   }
