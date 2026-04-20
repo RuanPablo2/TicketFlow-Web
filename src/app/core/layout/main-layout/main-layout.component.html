@@ -6,14 +6,14 @@
     </div>
 
     <div class="nav-links">
-      <button mat-button routerLink="/tickets">Meus Chamados</button>
+      <button mat-button routerLink="/tickets">My tickets</button>
 
       <button
         mat-button
         *ngIf="userRole === 'ADMIN'"
         routerLink="/admin/staff/new"
       >
-        <mat-icon>person_add</mat-icon> Criar Staff
+        <mat-icon>person_add</mat-icon> Create Staff
       </button>
     </div>
 

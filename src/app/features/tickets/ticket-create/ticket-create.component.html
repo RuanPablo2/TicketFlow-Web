@@ -1,19 +1,19 @@
-<h2 mat-dialog-title>Abrir Novo Chamado</h2>
+<h2 mat-dialog-title>Open New Ticket</h2>
 
 <mat-dialog-content>
   <form [formGroup]="ticketForm" class="ticket-form">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Título do Problema</mat-label>
+      <mat-label>Problem Title</mat-label>
       <input
         matInput
         formControlName="title"
-        placeholder="Ex: Erro ao emitir nota fiscal"
+        placeholder="Ex: Error issuing invoice."
       />
     </mat-form-field>
 
     <div class="row">
       <mat-form-field appearance="outline" class="half-width">
-        <mat-label>Categoria</mat-label>
+        <mat-label>Category</mat-label>
         <mat-select formControlName="category">
           <mat-option value="FINANCE">Finance</mat-option>
           <mat-option value="BUG">Bug</mat-option>
@@ -24,25 +24,25 @@
     </div>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Descrição detalhada</mat-label>
+      <mat-label>Detailed description</mat-label>
       <textarea
         matInput
         formControlName="description"
         rows="4"
-        placeholder="Descreva o que está acontecendo..."
+        placeholder="Describe what is happening..."
       ></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close [disabled]="isLoading">Cancelar</button>
+  <button mat-button mat-dialog-close [disabled]="isLoading">Cancel</button>
   <button
     mat-flat-button
     color="primary"
     (click)="onSubmit()"
     [disabled]="ticketForm.invalid || isLoading"
   >
-    {{ isLoading ? "Salvando..." : "Criar Chamado" }}
+    {{ isLoading ? "Saving..." : "Create ticket" }}
   </button>
 </mat-dialog-actions>

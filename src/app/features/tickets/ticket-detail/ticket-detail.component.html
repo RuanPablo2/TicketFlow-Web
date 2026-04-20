@@ -11,7 +11,7 @@
     >
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h2>Detalhes do Chamado #{{ ticketData.id }}</h2>
+    <h2>Ticket Details #{{ ticketData.id }}</h2>
   </div>
 
   <div class="content-grid">
@@ -43,14 +43,14 @@
           <mat-divider></mat-divider>
 
           <div class="description-box">
-            <h4>Descrição original:</h4>
+            <h4>Original description:</h4>
             <p>{{ ticketData.description }}</p>
           </div>
 
           <div class="meta-info" *ngIf="ticketData.createdAt">
             <mat-icon>schedule</mat-icon>
             <span
-              >Aberto em:
+              >Open in:
               {{ ticketData.createdAt | date: "dd/MM/yyyy HH:mm" }}</span
             >
           </div>
@@ -61,20 +61,22 @@
     <div class="chat-column">
       <mat-card class="chat-card">
         <mat-card-header>
-          <mat-card-title> <mat-icon>forum</mat-icon> Conversa </mat-card-title>
+          <mat-card-title>
+            <mat-icon>forum</mat-icon> Conversation
+          </mat-card-title>
         </mat-card-header>
 
         <mat-card-content class="chat-area">
           <div class="empty-chat">
             <mat-icon>chat_bubble_outline</mat-icon>
-            <p>Nenhuma mensagem ainda.</p>
-            <p class="subtitle">A área de mensagens será construída aqui!</p>
+            <p>No message yet.</p>
+            <p class="subtitle">The messaging area will be built here!</p>
           </div>
         </mat-card-content>
 
         <mat-card-actions class="chat-actions">
           <mat-form-field appearance="outline" class="chat-input">
-            <mat-label>Digite sua mensagem...</mat-label>
+            <mat-label>Enter your message...</mat-label>
             <input matInput disabled placeholder="Em breve..." />
           </mat-form-field>
           <button mat-fab color="primary" disabled>
