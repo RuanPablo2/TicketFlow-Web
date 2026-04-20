@@ -18,4 +18,8 @@ export class TicketService {
   createTicket(ticketData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, ticketData);
   }
+
+  getTicketById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
 }

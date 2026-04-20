@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { TicketService } from '../../../core/services/ticket.service';
+import { Router, RouterModule } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
@@ -13,7 +14,7 @@ import { TicketCreateComponent } from '../ticket-create/ticket-create.component'
 @Component({
   selector: 'app-ticket-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule],
+  imports: [CommonModule, MatTableModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, RouterModule],
   templateUrl: './ticket-list.component.html',
   styleUrl: './ticket-list.component.scss'
 })
