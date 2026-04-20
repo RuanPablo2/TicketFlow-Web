@@ -31,4 +31,12 @@ export class TicketService {
     const payload = { content, internalNote };
     return this.http.post<any>(`${this.apiUrl}/${ticketId}/messages`, payload);
   }
+
+  assignTicket(ticketId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/assign`, {});
+  }
+
+  updateTicketStatus(ticketId: string, status: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/status?status=${status}`, {});
+  }
 }

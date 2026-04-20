@@ -4,14 +4,61 @@
 
 <div class="page-container" *ngIf="!isLoading && ticketData">
   <div class="page-header">
-    <button
-      mat-icon-button
-      routerLink="/tickets"
-      matTooltip="Voltar para a lista"
+    <div class="title-area">
+      <button mat-icon-button routerLink="/tickets" matTooltip="Back to list">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h2>Ticket Details #{{ ticketData.id }}</h2>
+    </div>
+
+    <span class="spacer"></span>
+
+    <div
+      class="staff-header-actions"
+      *ngIf="userRole === 'ADMIN' || userRole === 'SUPPORT'"
     >
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <h2>Ticket Details #{{ ticketData.id }}</h2>
+      <button mat-stroked-button color="primary" (click)="assignToMe()">
+        <mat-icon>person_add</mat-icon> Assign to me
+      </button>
+
+      <button mat-flat-button color="accent" [matMenuTriggerFor]="statusMenu">
+        <mat-icon>sync_alt</mat-icon> Change Status
+      </button>
+
+      <mat-menu #statusMenu="matMenu">
+        <button
+          mat-menu-item
+          *ngIf="ticketData.status !== 'OPEN'"
+          (click)="changeStatus('OPEN')"
+        >
+          <mat-icon>fiber_new</mat-icon> Open
+        </button>
+
+        <button
+          mat-menu-item
+          *ngIf="ticketData.status !== 'IN_PROGRESS'"
+          (click)="changeStatus('IN_PROGRESS')"
+        >
+          <mat-icon>autorenew</mat-icon> In Progress
+        </button>
+
+        <button
+          mat-menu-item
+          *ngIf="ticketData.status !== 'WAITING_CUSTOMER'"
+          (click)="changeStatus('WAITING_CUSTOMER')"
+        >
+          <mat-icon>hourglass_empty</mat-icon> Waiting Customer
+        </button>
+
+        <button
+          mat-menu-item
+          *ngIf="ticketData.status !== 'RESOLVED'"
+          (click)="changeStatus('RESOLVED')"
+        >
+          <mat-icon>check_circle</mat-icon> Resolved
+        </button>
+      </mat-menu>
+    </div>
   </div>
 
   <div class="content-grid">

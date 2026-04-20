@@ -13,6 +13,7 @@ import { TicketService } from '../../../core/services/ticket.service';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthService } from '../../../core/services/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -21,7 +22,7 @@ import { AuthService } from '../../../core/services/auth.service';
     CommonModule, RouterModule, MatCardModule, 
     MatChipsModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
     MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule, MatMenuModule
   ],
   templateUrl: './ticket-detail.component.html',
   styleUrl: './ticket-detail.component.scss'
@@ -89,6 +90,28 @@ export class TicketDetailComponent implements OnInit {
         console.error('Error sending message', err);
         this.isSending = false;
       }
+    });
+  }
+
+  assignToMe() {
+    if (!this.ticketId) return;
+    
+    this.ticketService.assignTicket(this.ticketId).subscribe({
+      next: (updatedTicket) => {
+        this.ticketData = updatedTicket;
+      },
+      error: (err) => console.error('Erro ao atribuir ticket', err)
+    });
+  }
+
+  changeStatus(newStatus: string) {
+    if (!this.ticketId) return;
+
+    this.ticketService.updateTicketStatus(this.ticketId, newStatus).subscribe({
+      next: (updatedTicket) => {
+        this.ticketData = updatedTicket;
+      },
+      error: (err) => console.error('Erro ao mudar status', err)
     });
   }
 }
