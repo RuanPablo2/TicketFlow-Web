@@ -1,13 +1,31 @@
 <div class="page-container">
   <mat-card class="table-card">
-    <mat-card-header class="header-actions">
+    <mat-card-header
+      class="header-actions"
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      "
+    >
       <mat-card-title>{{
         userRole === "CLIENT" ? "My Tickets" : "Support Dashboard"
       }}</mat-card-title>
 
-      <button mat-flat-button color="primary" (click)="openCreateDialog()">
-        <mat-icon>add</mat-icon> New Ticket
-      </button>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <mat-slide-toggle
+          color="primary"
+          [(ngModel)]="showResolved"
+          (change)="onFilterChange()"
+        >
+          Show Resolved
+        </mat-slide-toggle>
+
+        <button mat-flat-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon> New Ticket
+        </button>
+      </div>
     </mat-card-header>
 
     <mat-tab-group
@@ -21,6 +39,45 @@
     </mat-tab-group>
 
     <mat-card-content>
+      <div
+        class="filters-row"
+        style="
+          display: flex;
+          gap: 16px;
+          margin-bottom: 16px;
+          align-items: center;
+        "
+        *ngIf="!isLoading"
+      >
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Category</mat-label>
+          <mat-select
+            [(ngModel)]="filterCategory"
+            (selectionChange)="onFilterChange()"
+          >
+            <mat-option value="">All Categories</mat-option>
+            <mat-option value="HARDWARE">Hardware</mat-option>
+            <mat-option value="SOFTWARE">Software</mat-option>
+            <mat-option value="NETWORK">Network</mat-option>
+            <mat-option value="DOUBT">Doubt</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Priority</mat-label>
+          <mat-select
+            [(ngModel)]="filterPriority"
+            (selectionChange)="onFilterChange()"
+          >
+            <mat-option value="">All Priorities</mat-option>
+            <mat-option value="LOW">Low</mat-option>
+            <mat-option value="MEDIUM">Medium</mat-option>
+            <mat-option value="HIGH">High</mat-option>
+            <mat-option value="URGENT">Urgent</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div *ngIf="isLoading" class="loading-state">Loading tickets...</div>
 
       <table
@@ -82,6 +139,26 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Opened At</th>
+          <td
+            mat-cell
+            *matCellDef="let ticket"
+            style="color: #666; font-size: 0.9em"
+          >
+            <div
+              style="display: flex; align-items: center; gap: 4px"
+              *ngIf="ticket.createdAt"
+            >
+              <mat-icon style="font-size: 16px; width: 16px; height: 16px"
+                >calendar_today</mat-icon
+              >
+              {{ ticket.createdAt | date: "dd/MM/yyyy HH:mm" }}
+            </div>
+            <span *ngIf="!ticket.createdAt">-</span>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef class="actions-header">
             Actions
@@ -107,7 +184,7 @@
       </table>
 
       <div *ngIf="!isLoading && dataSource.length === 0" class="empty-state">
-        No tickets found in the queue.
+        No tickets found matching your criteria.
       </div>
     </mat-card-content>
   </mat-card>

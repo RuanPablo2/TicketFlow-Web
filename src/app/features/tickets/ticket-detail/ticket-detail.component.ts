@@ -112,7 +112,7 @@ export class TicketDetailComponent implements OnInit {
       next: (updatedTicket) => {
         this.ticketData = updatedTicket;
       },
-      error: (err) => console.error('Erro ao atribuir ticket', err)
+      error: (err) => console.error('Error assigning ticket', err)
     });
   }
 
@@ -123,7 +123,7 @@ export class TicketDetailComponent implements OnInit {
       next: (updatedTicket) => {
         this.ticketData = updatedTicket;
       },
-      error: (err) => console.error('Erro ao mudar status', err)
+      error: (err) => console.error('Error when changing status', err)
     });
   }
 
