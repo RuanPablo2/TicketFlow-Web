@@ -27,7 +27,7 @@ export class LoginComponent {
   private router = inject(Router);
 
   loginForm: FormGroup = this.fb.group({
-    email: ['admin_local@ticketflow.com', [Validators.required, Validators.email]],
+    email: ['guru@support.com', [Validators.required, Validators.email]],
     password: ['123456', [Validators.required, Validators.minLength(6)]]
   });
 

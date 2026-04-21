@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +28,8 @@ export const routes: Routes = [
       },
       {
         path: 'admin/staff/new',
+        canActivate: [roleGuard],
+        data: { roles: ['ADMIN'] },
         loadComponent: () => import('./features/admin/staff-create/staff-create.component').then(m => m.StaffCreateComponent)
       }
     ]

@@ -1,13 +1,11 @@
 <div class="layout-container">
   <mat-toolbar color="primary" class="navbar mat-elevation-z4">
-    <div class="brand">
+    <div class="brand" routerLink="/tickets" style="cursor: pointer">
       <mat-icon>confirmation_number</mat-icon>
       <span>TicketFlow</span>
     </div>
 
     <div class="nav-links">
-      <button mat-button routerLink="/tickets">My tickets</button>
-
       <button
         mat-button
         *ngIf="userRole === 'ADMIN'"
@@ -22,7 +20,7 @@
     <div class="user-actions">
       <button mat-button><mat-icon>person</mat-icon> {{ userRole }}</button>
 
-      <button mat-icon-button matTooltip="Sair do sistema" (click)="logout()">
+      <button mat-icon-button matTooltip="Logout" (click)="logout()">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
