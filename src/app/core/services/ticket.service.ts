@@ -40,6 +40,10 @@ export class TicketService {
     return this.http.put<any>(`${this.apiUrl}/${ticketId}/status?status=${status}`, {});
   }
 
+  updateTicketPriority(ticketId: string, priority: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/priority?priority=${priority}`, {});
+  }
+
   getMyQueue(page: number = 0, size: number = 10): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/my-queue?page=${page}&size=${size}`);
   }

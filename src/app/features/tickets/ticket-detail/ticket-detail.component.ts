@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthService } from '../../../core/services/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -31,6 +32,7 @@ export class TicketDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private ticketService = inject(TicketService);
   private authService = inject(AuthService);
+  private snackBar = inject(MatSnackBar);
 
   ticketId: string | null = null;
   ticketData: any = null;
@@ -93,6 +95,16 @@ export class TicketDetailComponent implements OnInit {
     });
   }
 
+  isMyMessage(msg: any): boolean {
+    const senderRole = msg.sender?.role || msg.role; 
+
+    if (this.userRole === 'CLIENT') {
+      return senderRole === 'CLIENT';
+    } else {
+      return senderRole === 'ADMIN' || senderRole === 'SUPPORT';
+    }
+  }
+
   assignToMe() {
     if (!this.ticketId) return;
     
@@ -112,6 +124,26 @@ export class TicketDetailComponent implements OnInit {
         this.ticketData = updatedTicket;
       },
       error: (err) => console.error('Erro ao mudar status', err)
+    });
+  }
+
+  changePriority(newPriority: string) {
+    if (!this.ticketId) return;
+
+    this.ticketService.updateTicketPriority(this.ticketId, newPriority).subscribe({
+      next: (updatedTicket) => {
+        this.ticketData = updatedTicket;
+        
+        this.snackBar.open(`✅ Priority changed to ${newPriority}`, 'Close', { 
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+      },
+      error: (err) => {
+        console.error('Error changing priority', err);
+        this.snackBar.open('❌ Error updating priority', 'Close', { duration: 3000 });
+      }
     });
   }
 }

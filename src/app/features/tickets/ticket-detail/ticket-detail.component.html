@@ -33,7 +33,6 @@
         >
           <mat-icon>fiber_new</mat-icon> Open
         </button>
-
         <button
           mat-menu-item
           *ngIf="ticketData.status !== 'IN_PROGRESS'"
@@ -41,7 +40,6 @@
         >
           <mat-icon>autorenew</mat-icon> In Progress
         </button>
-
         <button
           mat-menu-item
           *ngIf="ticketData.status !== 'WAITING_CUSTOMER'"
@@ -49,13 +47,51 @@
         >
           <mat-icon>hourglass_empty</mat-icon> Waiting Customer
         </button>
-
         <button
           mat-menu-item
           *ngIf="ticketData.status !== 'RESOLVED'"
           (click)="changeStatus('RESOLVED')"
         >
           <mat-icon>check_circle</mat-icon> Resolved
+        </button>
+      </mat-menu>
+
+      <button
+        mat-stroked-button
+        color="warn"
+        [matMenuTriggerFor]="priorityMenu"
+      >
+        <mat-icon>flag</mat-icon> Priority
+      </button>
+
+      <mat-menu #priorityMenu="matMenu">
+        <button
+          mat-menu-item
+          *ngIf="ticketData.priority !== 'LOW'"
+          (click)="changePriority('LOW')"
+        >
+          <mat-icon>arrow_downward</mat-icon> Low
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="ticketData.priority !== 'MEDIUM'"
+          (click)="changePriority('MEDIUM')"
+        >
+          <mat-icon>remove</mat-icon> Medium
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="ticketData.priority !== 'HIGH'"
+          (click)="changePriority('HIGH')"
+        >
+          <mat-icon>arrow_upward</mat-icon> High
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="ticketData.priority !== 'URGENT'"
+          (click)="changePriority('URGENT')"
+        >
+          <mat-icon color="warn">warning</mat-icon> Urgent
         </button>
       </mat-menu>
     </div>
@@ -134,25 +170,30 @@
 
           <div class="message-list" *ngIf="messages.length > 0">
             <div
-              class="message-bubble"
+              class="message-row"
               *ngFor="let msg of messages"
-              [ngClass]="{ 'internal-note': msg.internalNote }"
+              [ngClass]="{ mine: isMyMessage(msg), theirs: !isMyMessage(msg) }"
             >
-              <div class="msg-header">
-                <span class="sender">
-                  <mat-icon
-                    *ngIf="msg.internalNote"
-                    class="lock-icon"
-                    matTooltip="Internal Note (Invisible to the client)"
-                    >lock</mat-icon
-                  >
-                  {{ msg.senderName || "User" }}
-                </span>
-                <span class="time" *ngIf="msg.createdAt">{{
-                  msg.createdAt | date: "HH:mm"
-                }}</span>
+              <div
+                class="message-bubble"
+                [ngClass]="{ 'internal-note': msg.internalNote }"
+              >
+                <div class="msg-header">
+                  <span class="sender">
+                    <mat-icon
+                      *ngIf="msg.internalNote"
+                      class="lock-icon"
+                      matTooltip="Internal Note (Invisible to the client)"
+                      >lock</mat-icon
+                    >
+                    {{ msg.sender?.name || msg.senderName || "Unknown" }}
+                  </span>
+                  <span class="time" *ngIf="msg.createdAt">{{
+                    msg.createdAt | date: "HH:mm"
+                  }}</span>
+                </div>
+                <div class="msg-content">{{ msg.content }}</div>
               </div>
-              <div class="msg-content">{{ msg.content }}</div>
             </div>
           </div>
         </mat-card-content>
