@@ -146,4 +146,24 @@ export class TicketDetailComponent implements OnInit {
       }
     });
   }
+
+  resumeTicket() {
+    if (!this.ticketId) return;
+
+    this.ticketService.resumeTicket(this.ticketId).subscribe({
+      next: (updatedTicket) => {
+        this.ticketData = updatedTicket;
+        
+        this.snackBar.open('✅ Request returned to support successfully!', 'Close', { 
+          duration: 4000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+      },
+      error: (err) => {
+        console.error('Error resuming ticket', err);
+        this.snackBar.open('❌ Error returning request', 'Close', { duration: 3000 });
+      }
+    });
+  }
 }

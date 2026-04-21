@@ -95,8 +95,21 @@
         </button>
       </mat-menu>
     </div>
-  </div>
 
+    <div
+      class="client-header-actions"
+      *ngIf="userRole === 'CLIENT' && ticketData.status === 'WAITING_CUSTOMER'"
+    >
+      <button
+        mat-flat-button
+        color="accent"
+        (click)="resumeTicket()"
+        matTooltip="Return request to support queue"
+      >
+        <mat-icon>reply</mat-icon> Resume Ticket
+      </button>
+    </div>
+  </div>
   <div class="content-grid">
     <div class="info-column">
       <mat-card class="detail-card">

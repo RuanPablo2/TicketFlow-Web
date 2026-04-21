@@ -30,7 +30,8 @@
     flex: 1 1 auto;
   }
 
-  .staff-header-actions {
+  .staff-header-actions,
+  .client-header-actions {
     display: flex;
     gap: 12px;
   }

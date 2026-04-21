@@ -47,4 +47,8 @@ export class TicketService {
   getMyQueue(page: number = 0, size: number = 10): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/my-queue?page=${page}&size=${size}`);
   }
+
+  resumeTicket(ticketId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}/resume`, {});
+  }
 }
