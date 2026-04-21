@@ -29,7 +29,7 @@ export class TicketListComponent implements OnInit {
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
 
-  displayedColumns: string[] = ['id', 'title', 'category', 'priority', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'client', 'category', 'priority', 'status', 'actions'];
   dataSource: any[] = [];
   isLoading = true;
   userRole: string | null = '';

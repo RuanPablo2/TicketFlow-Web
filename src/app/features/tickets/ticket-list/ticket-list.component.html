@@ -41,6 +41,20 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>Requester</th>
+          <td mat-cell *matCellDef="let ticket">
+            <div
+              style="display: flex; align-items: center; gap: 4px; color: #555"
+            >
+              <mat-icon style="font-size: 18px; width: 18px; height: 18px"
+                >person</mat-icon
+              >
+              {{ ticket.client?.name || "Unknown User" }}
+            </div>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="category">
           <th mat-header-cell *matHeaderCellDef>Category</th>
           <td mat-cell *matCellDef="let ticket">{{ ticket.category }}</td>

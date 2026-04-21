@@ -89,6 +89,21 @@
 
           <mat-divider></mat-divider>
 
+          <div class="requester-info">
+            <div class="requester-name">
+              <mat-icon color="primary">account_circle</mat-icon>
+              <span>
+                <strong>Requester:</strong>
+                {{ ticketData.client?.name || "Unknown User" }}
+              </span>
+            </div>
+
+            <div class="requester-email">
+              <mat-icon class="small-icon">email</mat-icon>
+              <span>{{ ticketData.client?.email || "No email provided" }}</span>
+            </div>
+          </div>
+
           <div class="description-box">
             <h4>Original description:</h4>
             <p>{{ ticketData.description }}</p>

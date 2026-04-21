@@ -282,3 +282,30 @@
     }
   }
 }
+
+.requester-info {
+  margin: 16px 0;
+  color: #333;
+
+  .requester-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .requester-email {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 32px;
+    margin-top: 4px;
+    color: #666;
+    font-size: 0.9rem;
+
+    .small-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
