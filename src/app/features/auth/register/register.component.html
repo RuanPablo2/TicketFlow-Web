@@ -1,27 +1,27 @@
-<div class="login-container">
-  <mat-card class="login-card">
+<div class="register-container">
+  <mat-card class="register-card">
     <mat-card-header>
-      <mat-card-title>TicketFlow</mat-card-title>
-      <mat-card-subtitle>Log in to access the system</mat-card-subtitle>
+      <mat-card-title>Create Account</mat-card-title>
+      <mat-card-subtitle>Join TicketFlow to get support</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" placeholder="John Doe" />
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>E-mail</mat-label>
           <input
             matInput
             formControlName="email"
             type="email"
-            placeholder="exemplo@ticketflow.com"
+            placeholder="example@ticketflow.com"
           />
           <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
-            >Invalid email address</mat-error
-          >
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
-            >Email is required</mat-error
-          >
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
@@ -42,35 +42,31 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
-            >Password is required</mat-error
-          >
         </mat-form-field>
-
-        <div *ngIf="errorMessage" class="error-alert">
-          {{ errorMessage }}
-        </div>
 
         <div class="actions">
           <button
             mat-flat-button
             color="primary"
             type="submit"
-            [disabled]="loginForm.invalid || isLoading"
+            [disabled]="registerForm.invalid || isLoading"
             class="full-width"
           >
-            {{ isLoading ? "Entering..." : "Enter" }}
+            <mat-spinner
+              *ngIf="isLoading"
+              diameter="20"
+              class="btn-spinner"
+            ></mat-spinner>
+            <span *ngIf="!isLoading">Sign Up</span>
           </button>
         </div>
       </form>
     </mat-card-content>
 
-    <mat-divider></mat-divider>
-
-    <mat-card-actions class="register-prompt">
-      <span>Don't have an account?</span>
-      <button mat-button color="primary" routerLink="/register">
-        Sign up now
+    <mat-card-actions class="login-prompt">
+      <span>Already have an account?</span>
+      <button mat-button color="primary" routerLink="/login">
+        Log in here
       </button>
     </mat-card-actions>
   </mat-card>

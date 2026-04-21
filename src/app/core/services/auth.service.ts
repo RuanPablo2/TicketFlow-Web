@@ -19,6 +19,10 @@ export class AuthService {
     );
   }
 
+  registerClient(clientData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, clientData);
+  }
+
   logout(): void {
     localStorage.removeItem('jwt_token');
   }
