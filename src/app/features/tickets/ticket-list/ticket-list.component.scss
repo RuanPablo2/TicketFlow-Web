@@ -20,7 +20,24 @@
       font-size: 24px;
       margin: 0;
     }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
   }
+}
+
+.staff-tabs {
+  margin-bottom: 16px;
+}
+
+.filters-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
 }
 
 table {
@@ -33,6 +50,36 @@ table {
   overflow: hidden;
   text-overflow: ellipsis;
   color: #333;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #555;
+
+  .small-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.date-cell {
+  color: #666;
+  font-size: 0.9em;
+
+  .date-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .tiny-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 .ticket-row {
@@ -93,8 +140,4 @@ table {
     color: #d32f2f !important;
     font-weight: bold;
   }
-}
-
-.staff-tabs {
-  margin-bottom: 16px;
 }

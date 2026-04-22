@@ -51,4 +51,8 @@ export class TicketService {
   resumeTicket(ticketId: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${ticketId}/resume`, {});
   }
+
+  getStats(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/stats`);
+}
 }
