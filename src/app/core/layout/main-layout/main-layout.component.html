@@ -5,11 +5,21 @@
       <span>TicketFlow</span>
     </div>
 
-    <div class="nav-links">
+    <div class="nav-links" style="margin-left: 24px; display: flex; gap: 8px">
+      <button
+        mat-button
+        *ngIf="userRole === 'ADMIN'"
+        routerLink="/dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>insights</mat-icon> Dashboard
+      </button>
+
       <button
         mat-button
         *ngIf="userRole === 'ADMIN'"
         routerLink="/admin/staff/new"
+        routerLinkActive="active-link"
       >
         <mat-icon>person_add</mat-icon> Create Staff
       </button>

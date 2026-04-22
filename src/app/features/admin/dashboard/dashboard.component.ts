@@ -12,15 +12,15 @@ import { TicketService } from '../../../core/services/ticket.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatCardModule, 
-    MatIconModule, 
-    MatGridListModule, 
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatGridListModule,
     MatProgressSpinnerModule,
-    BaseChartDirective
+    BaseChartDirective,
   ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   private ticketService = inject(TicketService);
@@ -31,8 +31,8 @@ export class DashboardComponent implements OnInit {
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
-      legend: { display: true, position: 'bottom' }
-    }
+      legend: { display: true, position: 'bottom' },
+    },
   };
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
@@ -41,9 +41,9 @@ export class DashboardComponent implements OnInit {
       {
         data: [0, 0, 0, 0],
         backgroundColor: ['#e3f2fd', '#fff3e0', '#e8eaf6', '#e8f5e9'],
-        hoverBackgroundColor: ['#2196f3', '#ff9800', '#3f51b5', '#4caf50']
-      }
-    ]
+        hoverBackgroundColor: ['#2196f3', '#ff9800', '#3f51b5', '#4caf50'],
+      },
+    ],
   };
 
   public pieChartType: ChartType = 'pie';
@@ -56,18 +56,23 @@ export class DashboardComponent implements OnInit {
     this.ticketService.getStats().subscribe({
       next: (data) => {
         this.stats = data;
-        this.pieChartData.datasets[0].data = [
-          data.open,
-          data.inProgress,
-          data.waiting,
-          data.resolved
-        ];
+
+        this.pieChartData = {
+          labels: this.pieChartData.labels,
+          datasets: [
+            {
+              ...this.pieChartData.datasets[0],
+              data: [data.open, data.inProgress, data.waiting, data.resolved],
+            },
+          ],
+        };
+
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Error loading stats', err);
         this.isLoading = false;
-      }
+      },
     });
   }
 }
