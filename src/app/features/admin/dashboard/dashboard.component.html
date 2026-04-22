@@ -56,8 +56,8 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    <div class="charts-row">
-      <mat-card class="chart-container">
+    <div class="dashboard-widgets">
+      <mat-card class="widget-card chart-widget">
         <mat-card-header>
           <mat-card-title>Status Distribution</mat-card-title>
         </mat-card-header>
@@ -71,6 +71,41 @@
             >
             </canvas>
           </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="widget-card agents-widget">
+        <mat-card-header>
+          <mat-card-title>Team Workload</mat-card-title>
+          <mat-card-subtitle
+            >Active tickets per support agent</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let agent of topAgents" class="agent-item">
+              <mat-icon matListItemIcon class="avatar-icon"
+                >support_agent</mat-icon
+              >
+
+              <div matListItemTitle class="agent-header">
+                <span class="agent-name">{{ agent.name }}</span>
+                <span class="agent-tickets"
+                  >{{ agent.activeTickets }} active</span
+                >
+              </div>
+
+              <div matListItemLine class="agent-stats">
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="(agent.activeTickets / 20) * 100"
+                ></mat-progress-bar>
+                <small class="resolved-text"
+                  >{{ agent.resolvedThisWeek }} resolved this week</small
+                >
+              </div>
+            </mat-list-item>
+          </mat-list>
         </mat-card-content>
       </mat-card>
     </div>

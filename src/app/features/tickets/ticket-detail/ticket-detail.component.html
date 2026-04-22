@@ -17,7 +17,12 @@
       class="staff-header-actions"
       *ngIf="userRole === 'ADMIN' || userRole === 'SUPPORT'"
     >
-      <button mat-stroked-button color="primary" (click)="assignToMe()">
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="assignToMe()"
+        *ngIf="userRole === 'SUPPORT'"
+      >
         <mat-icon>person_add</mat-icon> Assign to me
       </button>
 

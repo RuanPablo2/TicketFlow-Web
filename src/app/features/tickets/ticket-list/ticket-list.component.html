@@ -27,7 +27,8 @@
       class="staff-tabs"
     >
       <mat-tab label="Global Queue"> </mat-tab>
-      <mat-tab label="My Assigned Tickets"> </mat-tab>
+      <mat-tab label="My Assigned Tickets" *ngIf="userRole === 'SUPPORT'">
+      </mat-tab>
     </mat-tab-group>
 
     <mat-card-content>
