@@ -1,6 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,12 +19,18 @@ import { MatDividerModule } from '@angular/material/divider';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule, ReactiveFormsModule, MatCardModule, 
-    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
-    MatDividerModule, RouterModule
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    RouterModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
@@ -27,8 +38,8 @@ export class LoginComponent {
   private router = inject(Router);
 
   loginForm: FormGroup = this.fb.group({
-    email: ['guru@support.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required, Validators.minLength(6)]]
+    email: ['jane@client.com', [Validators.required, Validators.email]],
+    password: ['123456', [Validators.required, Validators.minLength(6)]],
   });
 
   hidePassword = true;
@@ -39,15 +50,16 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
-      
+
       this.authService.login(this.loginForm.value).subscribe({
         next: (res) => {
-          this.router.navigate(['/tickets']); 
+          this.router.navigate(['/tickets']);
         },
         error: (err) => {
           this.isLoading = false;
-          this.errorMessage = 'Invalid email or password. Please check your credentials.';
-        }
+          this.errorMessage =
+            'Invalid email or password. Please check your credentials.';
+        },
       });
     }
   }
