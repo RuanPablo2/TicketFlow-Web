@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://64.181.176.221',
+  apiUrl: 'https://ticketflow-ruanpablo2.duckdns.org',
 };
