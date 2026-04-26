@@ -79,7 +79,7 @@ Esta seção apresenta a interface visual do TicketFlow. Para uma experiência c
     <tr>
       <td width="50%" align="center">
         <b>Detalhamento de Chamado</b><br>
-        <img src="./public/screenshots/ticket-detail.png" alt="Detalhes do Ticket" width="100%">
+        <img src="./public/screenshots/ticket-details.png" alt="Detalhes do Ticket" width="100%">
       </td>
       <td width="50%" align="center">
         <b>Dashboard do admin</b><br>
