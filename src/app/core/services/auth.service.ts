@@ -4,19 +4,21 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
-  
-  private apiUrl = `${environment.apiUrl}/auth`; 
+
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   login(credentials: any): Observable<any> {
-    return this.http.post<{token: string}>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('jwt_token', response.token);
-      })
-    );
+    return this.http
+      .post<{ token: string }>(`${this.apiUrl}/login`, credentials)
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('jwt_token', response.token);
+        }),
+      );
   }
 
   registerClient(clientData: any): Observable<any> {
@@ -46,5 +48,18 @@ export class AuthService {
 
   registerStaff(staffData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/register-staff`, staffData);
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, {
+      email,
+    });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, {
+      token,
+      newPassword,
+    });
   }
 }
