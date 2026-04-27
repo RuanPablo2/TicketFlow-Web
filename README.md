@@ -70,7 +70,7 @@ src/app/
 Esta seção apresenta a interface visual do TicketFlow. Para uma experiência completa, recomenda-se acessar o [Link de Produção](https://ticketflow-web.netlify.app).
 
 <div align="center">
-  <h3>Tela principal</h3>
+  <h3>Interface do Sistema</h3>
   <p align="center">
     <img src="./public/screenshots/principal.png" alt="Principal" width="900px">
   </p>
@@ -82,11 +82,26 @@ Esta seção apresenta a interface visual do TicketFlow. Para uma experiência c
         <img src="./public/screenshots/ticket-details.png" alt="Detalhes do Ticket" width="100%">
       </td>
       <td width="50%" align="center">
-        <b>Dashboard do admin</b><br>
+        <b>Dashboard do Admin</b><br>
         <img src="./public/screenshots/dashboard.png" alt="Dashboard" width="100%">
       </td>
     </tr>
   </table>
+
+<br><br>
+
+  <h3>Notificações Automáticas (Event-Driven)</h3>
+  <p align="center">
+    <b>Confirmação de Abertura de Ticket</b><br>
+    <img src="./public/screenshots/create-ticket-email.png" alt="E-mail de Abertura de Ticket" width="700px">
+  </p>
+  
+  <br>
+
+  <p align="center">
+    <b>Recuperação de Senha</b><br>
+    <img src="./public/screenshots/reset-password-email.png" alt="E-mail de Recuperação de Senha" width="700px">
+  </p>
 </div>
 
 ---
