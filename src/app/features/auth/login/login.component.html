@@ -2,10 +2,51 @@
   <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title>TicketFlow</mat-card-title>
-      <mat-card-subtitle>Log in to access the system</mat-card-subtitle>
+      <mat-card-subtitle>Acesse o portal de atendimento</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
+      <div class="demo-alert">
+        <mat-icon class="alert-icon">info</mat-icon>
+        <p>
+          O banco de dados é <strong>resetado a cada 12 horas</strong> para
+          manter o ambiente de demonstração limpo e seguro.
+        </p>
+      </div>
+
+      <div class="demo-actions">
+        <button
+          mat-stroked-button
+          class="demo-btn client-btn"
+          type="button"
+          (click)="loginAsDemo('CLIENT')"
+        >
+          <mat-icon>person</mat-icon> Acessar como Cliente
+        </button>
+
+        <button
+          mat-stroked-button
+          class="demo-btn support-btn"
+          type="button"
+          (click)="loginAsDemo('SUPPORT')"
+        >
+          <mat-icon>support_agent</mat-icon> Acessar como Suporte
+        </button>
+
+        <button
+          mat-stroked-button
+          class="demo-btn admin-btn"
+          type="button"
+          (click)="loginAsDemo('ADMIN')"
+        >
+          <mat-icon>admin_panel_settings</mat-icon> Acessar como Gestor
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou use suas credenciais</span>
+      </div>
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>E-mail</mat-label>
@@ -16,16 +57,16 @@
             placeholder="exemplo@ticketflow.com"
           />
           <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
-            >Invalid email address</mat-error
-          >
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
-            >Email is required</mat-error
-          >
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Formato de e-mail inválido
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            O e-mail é obrigatório
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
+          <mat-label>Senha</mat-label>
           <input
             matInput
             formControlName="password"
@@ -42,13 +83,13 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
-            >Password is required</mat-error
-          >
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            A senha é obrigatória
+          </mat-error>
         </mat-form-field>
 
         <div class="forgot-password-link">
-          <a routerLink="/forgot-password">Forgot password?</a>
+          <a routerLink="/forgot-password">Esqueceu a senha?</a>
         </div>
 
         <div *ngIf="errorMessage" class="error-alert">
@@ -61,9 +102,9 @@
             color="primary"
             type="submit"
             [disabled]="loginForm.invalid || isLoading"
-            class="full-width"
+            class="full-width login-button"
           >
-            {{ isLoading ? "Entering..." : "Enter" }}
+            {{ isLoading ? "Entrando..." : "Entrar" }}
           </button>
         </div>
       </form>
@@ -72,9 +113,9 @@
     <mat-divider></mat-divider>
 
     <mat-card-actions class="register-prompt">
-      <span>Don't have an account?</span>
+      <span>Não tem uma conta?</span>
       <button mat-button color="primary" routerLink="/register">
-        Sign up now
+        Cadastre-se agora
       </button>
     </mat-card-actions>
   </mat-card>

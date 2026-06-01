@@ -58,9 +58,28 @@ export class LoginComponent {
         error: (err) => {
           this.isLoading = false;
           this.errorMessage =
-            'Invalid email or password. Please check your credentials.';
+            'E-mail ou senha inválidos. Por favor, verifique suas credenciais.';
         },
       });
     }
+  }
+
+  loginAsDemo(role: 'CLIENT' | 'SUPPORT' | 'ADMIN') {
+    let email = '';
+    let password = '';
+
+    if (role === 'CLIENT') {
+      email = 'client-test@ticketflow.com';
+      password = 'ticket@demo123';
+    } else if (role === 'SUPPORT') {
+      email = 'support-test@ticketflow.com';
+      password = 'sup@demo123';
+    } else if (role === 'ADMIN') {
+      email = 'admin@ticketflow.com';
+      password = 'admin@demo123';
+    }
+
+    this.loginForm.patchValue({ email, password });
+    this.onSubmit();
   }
 }
